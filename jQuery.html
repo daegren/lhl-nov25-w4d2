@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    let income = 1;
+    let money = 0;
+
+    const upgradeCost = () => income * 0.1 > 1 ? income * 0.1 : 1
+
+    const canBuyUpgrade = () => money >= upgradeCost()
+
+    const updateDisplay = () => {
+      const $content = $('<div>').addClass('income').text(`Income: $${income}`)
+      const $money = $('<div>').addClass('money').text(`Money: $${money}`)
+
+      $('#income').empty()
+        .append($content)
+        .append($money)
+
+      $('#clicker')
+        .html(`🐥 ($${upgradeCost()})`)
+        .prop('disabled', !canBuyUpgrade())
+    }
+
+    setInterval(() => {
+      money += income
+      updateDisplay()
+    }, 1000)
+
+    $(document).ready(() => {
+      $('#clicker').on('click', () => {
+        if (canBuyUpgrade()) {
+          money -= upgradeCost()
+          income++
+          updateDisplay()
+        }
+      })
+    })
+
+  </script>
+
+</head>
+
+<body>
+  <h1>Larry Clicker</h1>
+
+  <button id="clicker">🐥</button>
+
+  <div id="income"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #mouser {
+      width: 200px;
+      height: 200px;
+      background: red;
+      color: white;
+    }
+  </style>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+      const button = document.getElementById('button')
+      button.addEventListener('click', e => {
+        const clickLocation = { x: Math.floor(e.clientX), y: Math.floor(e.clientY) }
+        const output = document.getElementById('output')
+        output.innerText = JSON.stringify(clickLocation)
+      })
+
+      const mouser = document.getElementById('mouser')
+      mouser.addEventListener('mousemove', e => {
+        console.log('updating mouse location')
+        const clickLocation = { x: Math.floor(e.clientX), y: Math.floor(e.clientY) }
+        mouser.innerText = JSON.stringify(clickLocation)
+      })
+
+      const form = document.getElementById('form')
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const url = `https://google.com/`
+        console.log(url)
+      })
+
+    })
+  </script>
+</head>
+
+<body>
+
+  <button id="button">Click Me!</button>
+  <div id="output">
+  </div>
+
+  <div id="mouser">
+
+  </div>
+
+  <form id="form" action="https://google.ca/" method="GET">
+    <input type="text" name="q" />
+    <button type="submit">Submit Form</button>
+  </form>
+
+</body>
+
+</html>
